@@ -42,7 +42,9 @@ const InterestForm = ({ step }) => {
       const errorMessage =
         typeof apiError === "string"
           ? apiError
-          : apiError?.message || "Something went wrong. Please try again.";
+          : apiError?.message ||
+            err?.message ||
+            "Something went wrong. Please try again.";
       setFeedback({ type: "error", text: errorMessage });
     } finally {
       setLoading(false);
