@@ -1,0 +1,22 @@
+1.logout on refresh, but both refresh and access tokens are still there in browser
+ -> route that was returning the current user, for function checking authorisation was not a protected route.
+
+2.Error in deleting an item from cart.
+  we were calling wrong endpoint like `/cart/${productId}`, but in backend route file we were passing the productid in req. not in params. so had to update " /cart , {data : {productId}} ".
+
+3.to reproduce an error -
+ when we are automatically logged out, when access token is expired, it should show unauthorised toast on refreshing page.
+
+4.on checkout discount wasn't being applied even if we apply the coupon->
+  in createCheckoutSession controller we were accepting it like {couponCode} from params, but from 'Ordersummmary.jsx' page, we were passing it as coupon from api.
+
+5.to check if isCouponApplied becomes false when we remove everything from cart.
+
+6.If coupon is available the final stripe checkout was showing discounted price, even if the coupon is not applied -> 
+ I found out that while doing post request on 'create-checkout-session' endpoint that sends the cart and coupon data further to stripe,  I was passing coupon if available directly without forcing a check if it is applied or not. so I applied a check and it worked fine.
+
+7.In OrderSummary component, total was not being updated, if coupon is removed (back to normal price.)
+=> we created central fn to compute total and subtotal i.e. computeTotal() fn
+  and call it from other store functions wherever required.
+
+8.
