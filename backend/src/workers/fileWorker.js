@@ -9,6 +9,7 @@ const worker = new Worker(
     const { jobId, filePath } = job.data;
 
     try {
+      console.log("Processing job:", jobId);
       // update job status -> processing
       await prisma.job.update({
         where: { id: jobId },
