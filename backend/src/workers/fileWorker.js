@@ -10,6 +10,9 @@ const worker = new Worker(
 
     try {
       console.log("Processing job:", jobId);
+
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+
       // update job status -> processing
       await prisma.job.update({
         where: { id: jobId },
