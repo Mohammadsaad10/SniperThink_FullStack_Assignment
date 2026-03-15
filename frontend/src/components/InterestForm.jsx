@@ -38,8 +38,11 @@ const InterestForm = ({ step }) => {
       });
       setForm({ name: "", email: "" });
     } catch (err) {
+      const apiError = err?.response?.data?.error || err?.response?.data;
       const errorMessage =
-        err?.response?.data?.error || "Something went wrong. Please try again.";
+        typeof apiError === "string"
+          ? apiError
+          : apiError?.message || "Something went wrong. Please try again.";
       setFeedback({ type: "error", text: errorMessage });
     } finally {
       setLoading(false);

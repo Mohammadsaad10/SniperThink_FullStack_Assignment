@@ -2,8 +2,9 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL:
-    import.meta.mode === "development" ? "http://localhost:5000/api" : "/api",
-  withCredentials: true, // send cookies to the server
+    import.meta.env.VITE_API_URL ||
+    (import.meta.env.DEV ? "http://localhost:5000/api" : "/api"),
+  timeout: 15000,
 });
 
 export const submitInterest = async (data) => {
